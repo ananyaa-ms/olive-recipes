@@ -1,7 +1,7 @@
 {
     "input_model": {
         "type": "ONNXModel",
-        "model_path": "C:\\Users\\aamancherla\\repos\\models\\xiaoyu-gemma4\\gemma4-vision.onnx"
+        "model_path": "models/input/gemma4-vision.onnx"
     },
     "systems": {
         "local_system": {

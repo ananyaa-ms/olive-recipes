@@ -1,7 +1,6 @@
 # Gemma 4 vision A16W8 calibration recipe
 
-This recipe consumes
-`C:\Users\aamancherla\repos\models\xiaoyu-gemma4\gemma4-vision.onnx` and runs:
+This recipe consumes `models/input/gemma4-vision.onnx` and runs:
 
 1. `MatMulNBitsToQDQ`
 2. `OnnxStaticQuantization` with UINT16 activations, UINT8 weights, QDQ format,
@@ -25,30 +24,28 @@ quantization preserves the model's dynamic input. The final pass independently
 fixes that input dimension to 2,520; removing that pass leaves the quantized
 model dynamic.
 
-## Setup
+## Linux GPU setup
 
-Use an environment containing the Olive checkout that provides
-`MatMulNBitsToQDQ` and UINT16 static quantization support:
+From this recipe directory, link `models/input` to the directory containing
+`gemma4-vision.onnx` and `model.onnx.data`:
 
-```powershell
-Set-Location C:\Users\aamancherla\repos\olive-recipes\xiaoyu-gemma4\a16w8
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -e C:\Users\aamancherla\repos\Olive
-pip install -r requirements.txt
+```bash
+mkdir -p models
+ln -s /absolute/path/to/xiaoyu-gemma4 models/input
+python -m pip install "olive-ai[gpu]>=0.13.0"
+python -m pip install -r requirements.txt
 ```
 
 ## Run
 
-Run from this recipe directory so `user_script.py` and the output paths resolve
+Run from this directory so `user_script.py` and the model paths resolve
 consistently:
 
-```powershell
-Set-Location C:\Users\aamancherla\repos\olive-recipes\xiaoyu-gemma4\a16w8
-olive run --config .\config.json
+```bash
+olive run --config ./config.json
 ```
 
-The quantized model is written under `models\a16w8`. Olive caches downloaded
+The quantized model is written under `models/a16w8`. Olive caches downloaded
 data and intermediate pass output under `cache`.
 
 To expand calibration after the 128-sample quality check, change
