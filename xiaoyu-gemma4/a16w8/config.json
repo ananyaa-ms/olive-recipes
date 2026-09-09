@@ -34,6 +34,7 @@
                 ],
                 "samples_per_subset": 16,
                 "seed": 42,
+                "shuffle_buffer_size": 0,
                 "max_soft_tokens": 280
             },
             "dataloader_config": {

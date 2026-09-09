@@ -35,16 +35,21 @@ class CauldronVisionCalibrationDataset(Dataset):
 
 
 @Registry.register_dataset()
-def cauldron_calibration_dataset(subsets, samples_per_subset=16, seed=42, max_soft_tokens=280, **kwargs):
+def cauldron_calibration_dataset(
+    subsets, samples_per_subset=16, seed=42, shuffle_buffer_size=0, max_soft_tokens=280, **kwargs
+):
     """Load an even number of calibration images from each Cauldron subset."""
     del kwargs
     if max_soft_tokens <= 0:
         raise ValueError("max_soft_tokens must be greater than zero.")
+    if shuffle_buffer_size < 0:
+        raise ValueError("shuffle_buffer_size must be non-negative.")
 
     images = []
     for subset_index, subset in enumerate(subsets):
         dataset = load_dataset(DATASET_NAME, subset, split="train", streaming=True)
-        dataset = dataset.shuffle(seed=seed + subset_index, buffer_size=1000)
+        if shuffle_buffer_size:
+            dataset = dataset.shuffle(seed=seed + subset_index, buffer_size=shuffle_buffer_size)
 
         subset_images = []
         for sample in dataset:

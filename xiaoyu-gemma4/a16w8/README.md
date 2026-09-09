@@ -24,6 +24,11 @@ quantization preserves the model's dynamic input. The final pass independently
 fixes that input dimension to 2,520; removing that pass leaves the quantized
 model dynamic.
 
+By default, the loader takes the first 16 usable images from each streamed
+subset (`shuffle_buffer_size = 0`) to avoid filling a large remote shuffle
+buffer before calibration. Set `shuffle_buffer_size` to a positive value such
+as 64 to enable approximate randomized sampling.
+
 ## Linux GPU setup
 
 From this recipe directory, link `models/input` to the directory containing
