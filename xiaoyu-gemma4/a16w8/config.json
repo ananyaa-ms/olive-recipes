@@ -1,7 +1,7 @@
 {
     "input_model": {
         "type": "ONNXModel",
-        "model_path": "models/input/gemma4-vision.onnx"
+        "model_path": "/home/aamancherla/models/xiaoyu-gemma4/gemma4-vision.onnx"
     },
     "systems": {
         "local_system": {
@@ -60,7 +60,7 @@
             "calibration_providers": [
                 "CUDAExecutionProvider"
             ],
-            "quant_preprocess": true,
+            "quant_preprocess": false,
             "prepare_qdq_config": true,
             "save_as_external_data": true,
             "external_data_name": "model.onnx.data"
