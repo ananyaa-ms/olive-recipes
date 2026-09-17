@@ -42,7 +42,7 @@
     "passes": {
         "matmul_nbits_to_qdq": {
             "type": "MatMulNBitsToQDQ",
-            "use_signed_int": false,
+            "use_signed_int": true,
             "add_zero_point": true,
             "save_as_external_data": true,
             "external_data_name": "model.onnx.data"
@@ -59,7 +59,7 @@
             "type": "OnnxStaticQuantization",
             "data_config": "cauldron_vision_calibration",
             "activation_type": "uint16",
-            "precision": "uint8",
+            "precision": "int8",
             "quant_format": "QDQ",
             "calibrate_method": "MinMax",
             "calibration_providers": [
@@ -85,7 +85,7 @@
     "host": "local_system",
     "target": "local_system",
     "cache_dir": "cache",
-    "output_dir": "models/a16w8",
+    "output_dir": "models_int4/a16w8",
     "no_artifacts": true,
     "log_severity_level": 1
 }
