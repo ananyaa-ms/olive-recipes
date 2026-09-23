@@ -11,6 +11,17 @@
                     ]
                 }
             ]
+        },
+        "target_system": {
+            "type": "LocalSystem",
+            "accelerators": [
+                {
+                    "device": "npu",
+                    "execution_providers": [
+                        "QNNExecutionProvider"
+                    ]
+                }
+            ]
         }
     },
     "data_configs": [
@@ -51,7 +62,8 @@
             "type": "GraphSurgeries",
             "surgeries": [{"surgeon": "RemoveUnusedOutputs"},
                           {"surgeon": "SimplifiedLayerNormToL2Norm"},
-                          {"surgeon": "RMSNormalizationToL2Norm"}],
+                          {"surgeon": "RMSNormalizationToL2Norm"},
+                          {"surgeon": "ReplaceAttentionMaskValue"}],
             "save_as_external_data": true,
             "external_data_name": "model.onnx.data"
         },
@@ -67,6 +79,9 @@
             ],
             "quant_preprocess": false,
             "prepare_qdq_config": true,
+            "extra_options": {
+                                "DedicatedQDQPair": true
+                             },
             "save_as_external_data": true,
             "external_data_name": "model.onnx.data"
         },
@@ -83,9 +98,9 @@
         }
     },
     "host": "local_system",
-    "target": "local_system",
+    "target": "target_system",
     "cache_dir": "cache",
-    "output_dir": "models_int4/a16w8",
+    "output_dir": "models_int4_qnn_ded_qdq_a16w8",
     "no_artifacts": true,
-    "log_severity_level": 1
+    "log_severity_level": 0
 }
