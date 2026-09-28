@@ -63,7 +63,7 @@
             "surgeries": [{"surgeon": "RemoveUnusedOutputs"},
                           {"surgeon": "SimplifiedLayerNormToL2Norm"},
                           {"surgeon": "RMSNormalizationToL2Norm"},
-                          {"surgeon": "ReplaceAttentionMaskValue"}],
+                          {"surgeon": "ReplaceAttentionMaskValue",  "threshold": -1e8}],
             "save_as_external_data": true,
             "external_data_name": "model.onnx.data"
         },
@@ -100,7 +100,7 @@
     "host": "local_system",
     "target": "target_system",
     "cache_dir": "cache",
-    "output_dir": "models_int4_qnn_ded_qdq_a16w8",
+    "output_dir": "models",
     "no_artifacts": true,
     "log_severity_level": 0
 }
