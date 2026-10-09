@@ -61,7 +61,7 @@
             "load_dataset_config": {
                 "type": "wikitext_decoder_calibration_dataset",
                 "embedding_model_path": "multi_comp/gemma4_onnx/embedding/model.onnx",
-                "num_samples": 1,
+                "num_samples": 32,
                 "seq_len": 64,
                 "past_len": 64
             },
@@ -75,9 +75,16 @@
             "load_dataset_config": {
                 "type": "cauldron_calibration_dataset",
                 "subsets": [
-                    "vqav2"
+                    "vqav2",
+                    "visual7w",
+                    "ai2d",
+                    "chartqa",
+                    "docvqa",
+                    "textvqa",
+                    "screen2words",
+                    "scienceqa"
                 ],
-                "samples_per_subset": 1,
+                "samples_per_subset": 16,
                 "seed": 42,
                 "shuffle_buffer_size": 0,
                 "max_soft_tokens": 280
@@ -281,9 +288,6 @@
         }
     },
     "max_concurrent_builds": 1,
-    "component_assembly": {
-        "update_multimodal_genai_config": true
-    },
     "builds": {
         "decoder": {
             "components": ["decoder"],
@@ -301,7 +305,7 @@
     "host": "cpu_system",
     "target": "qnn_system",
     "log_severity_level": 0,
-    "output_dir": "npu/output_test",
+    "output_dir": "npu/output",
     "cache_dir": "npu/cache",
     "no_artifacts": true,
     "ort_log_severity_level": 1,
